@@ -41,7 +41,7 @@ function OnAction(control) {
                 break
             }
         case "btnShowDialog":
-            wps.ShowDialog(GetUrlPath() + "/ui/dialog.html", "这是一个对话框网页", 400 * window.devicePixelRatio, 400 * window.devicePixelRatio, false)
+            wps.ShowDialog(GetUrlPath() + "/ui/dialog.html", "新建人物角色", 400 * window.devicePixelRatio, 400 * window.devicePixelRatio, false)
             break
         case "btnShowTaskPane":
             {
