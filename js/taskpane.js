@@ -59,12 +59,13 @@ function onbuttonclick(idStr)
 }
 
 window.onload = function () {
-    var xmlReq = WpsInvoke.CreateXHR();
-    var url = location.origin + "/.debugTemp/NotifyDemoUrl"
-    xmlReq.open("GET", url);
-    xmlReq.onload = function (res) {
-        var node = document.getElementById("DemoSpan");
-        node.innerText = res.target.responseText;
-    };
-    xmlReq.send();
+    // var xmlReq = WpsInvoke.CreateXHR();
+    // var url = location.origin + "/.debugTemp/NotifyDemoUrl"
+    // xmlReq.open("GET", url);
+    // xmlReq.onload = function (res) {
+    //     var node = document.getElementById("DemoSpan");
+    //     node.innerText = res.target.responseText;
+    // };
+    // xmlReq.send();
+    
 }

@@ -32,7 +32,7 @@
 
     </div>
     <div class = "CV_Name_fill">
-        <input type="text" name="CV_Name"><br>
+        <input type="text" name="CV_Name" id="CV_Name"><br>
 
     </div>
 </div>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="CV_Name_word">
-       <textarea rows='5' cols='25'> </textarea>
+       <textarea rows='5' cols='25' id="CV_Name_word"></textarea>
 
     </div>
 
@@ -57,9 +57,10 @@
 </div>
 <div class = "CV_Name_word">
     <form class = "sex_ckbox">
-        <input type="radio" name="sex" value="female">无
-        <input type="radio" name="sex" value="male">男
-        <input type="radio" name="sex" value="female">女
+        
+        <input type="radio" name="sex" value="男" checked="true" >男
+        <input type="radio" name="sex" value="女">女
+        <input type="radio" name="sex" value="无" >无
     </form>
 </div>
 </div>
@@ -71,7 +72,7 @@
         字体颜色
 
 </div>
-<div class = "font_color" onclick="initColorPicker('demo1'); return false" id="demo1" style="padding:12px 25px" >
+<div class = "font_color" onclick="initColorPicker('font_color'); return false" id="font_color" style="padding:12px 25px;background-color: rgb(255, 0, 0);" >
     
 </div>
 </div>
@@ -81,7 +82,7 @@
         背景颜色
 
 </div>
-<div class = "font_color" onclick="initColorPicker('demo'); return false" id="demo" style="padding:12px 25px" >
+<div class = "font_color" onclick="initColorPicker('bg_color'); return false" id="bg_color" style="padding:12px 25px;background-color: rgb(255, 0, 0);" >
 </div>
 
 </div>
@@ -89,7 +90,7 @@
 </div>
 
 <div class="btn_add_new"> 
-<div class = "btn_cancel">
+<div class = "btn_cancel" onclick="create_table()">
     取消
 </div>
 <div class = "btn_new" onclick="create_chara()">
@@ -119,7 +120,7 @@
 
 <!-- Color Picker -->
 <script type="text/JavaScript">
-var colorPicker = function (idStr) {
+colorPicker = function (idStr) {
     this.colorPool = ["#000000", "#993300", "#333300", "#003300", "#003366", "#000080", "#333399", "#333333", "#800000", "#FF6600", "#808000", "#008000", "#008080", "#0000FF", "#666699", "#808080", "#FF0000", "#FF9900", "#99CC00", "#339966", "#33CCCC", "#3366FF", "#800080", "#999999", "#FF00FF", "#FFCC00", "#FFFF00", "#00FF00", "#00FFFF", "#00CCFF", "#993366", "#CCCCCC", "#FF99CC", "#FFCC99", "#FFFF99", "#CCFFCC", "#CCFFFF", "#99CCFF", "#CC99FF", "#FFFFFF"];
     this.initialize(idStr);
 }
@@ -131,7 +132,7 @@ colorPicker.prototype = {
             var html = '';
             var self = this;
             html += '<table cellspacing="5" cellpadding="0" border="2" bordercolor="#000000" style="cursor:pointer;background:#ECE9D8" mce_style="cursor:pointer;background:#ECE9D8" >';
-            // html+= '<tr><td align="center" colspan="8" width="160" height="20" id="currentColor" bgcolor="#ffffff">当前颜色</td></tr>';
+            
             for (i = 0; i < 5; i++) {
                 html += "<tr>";
                 for (j = 0; j < 8; j++) {
@@ -141,21 +142,23 @@ colorPicker.prototype = {
                 html += "</tr>";
             }
         html += '</table>';
+
         this.trigger = document.getElementById(idStr);
         this.div = document.createElement('div');
         this.div.innerHTML = html;
         var tds = this.div.getElementsByTagName('td');
         for (var i = 0, l = tds.length; i < l; i++) {
             tds[i].onclick = function () {
-            self.setColor(this.style.backgroundColor, idStr);
+                self.setColor(this.style.backgroundColor, idStr);
             }
         }
+
         this.div.id = 'myColorPicker';
         this.trigger.parentNode.appendChild(this.div);
         this.div.style.position = 'absolute';
         
         this.div.style.top = (this.trigger.clientHeight + this.trigger.offsetTop) + 'px';
-        //this.hide();
+        // this.hide();
         this.trigger.onclick = function () {
             if (self.div.style.display == 'none') {
                 self.show();
@@ -196,16 +199,98 @@ function colorRGB2Hex(color) {
     var r = parseInt(rgb[0].split('(')[1]);
     var g = parseInt(rgb[1]);
     var b = parseInt(rgb[2].split(')')[0]);
-    var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); 
+    // var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); 
+    // var hex = ((r << 16) + (g << 8) + b)
+    var hex = ((b << 16) + (g << 8) + r)
     return hex; 
+
 }
 
+function create_table(){
+    Application.ActiveDocument.Range(0, 0).InsertBreak()
+    let tblNew = Application.ActiveDocument.Tables.Add(Application.ActiveDocument.Range(0, 0), 1, 5)
+    tblNew.Cell(1, 1).Range.InsertAfter("角色名称")
+    tblNew.Cell(1, 1).Range.Select()
+    Application.Selection.Font.Color = 0x666666 
+    Application.Selection.Font.Size = 10
+    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
+    tblNew.Cell(1, 2).Range.InsertAfter("CV名称")
+    tblNew.Cell(1, 2).Range.Select()
+    Application.Selection.Font.Color = 0x666666 
+    Application.Selection.Font.Size = 10
+    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
+    tblNew.Cell(1, 3).Range.InsertAfter("角色描述")
+    tblNew.Cell(1, 3).Range.Select()
+    Application.Selection.Font.Color = 0x666666 
+    Application.Selection.Font.Size = 10
+    Application.Selection.Alignment = Application.Enum.wdAlignParagraphRight
+    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
+    tblNew.Cell(1, 4).Range.InsertAfter("角色性别")
+    tblNew.Cell(1, 4).Range.Select()
+    Application.Selection.Font.Color = 0x666666 
+    Application.Selection.Font.Size = 10
+    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
+    tblNew.Cell(1, 5).Range.InsertAfter("着色预览")
+    tblNew.Cell(1, 5).Range.Select()
+    Application.Selection.Font.Color = 0x666666 
+    Application.Selection.Font.Size = 10
+    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
+    // tblNew.Columns.AutoFit()
+    let myTable = Application.ActiveDocument.Tables.Item(1)
+    myTable.Borders.InsideLineStyle = Application.Enum.wdLineStyleDashLargeGap
+    myTable.Borders.OutsideLineStyle = Application.Enum.wdLineStyleSingle
+
+}
 
 
 function create_chara(){
     var CS_Name = document.getElementById("CS_Name").value;
-    alert(CS_Name);
+    var CV_Name = document.getElementById("CV_Name").value;
+    var CV_Name_word = document.getElementById("CV_Name_word").value;
+    var radio = document.getElementsByName("sex");
+    var sex_value
+    for (i=0; i<radio.length; i++) {
+        if (radio[i].checked) {
+            sex_value=radio[i].value
+        }
+    }
+
     
+    var font_color =  document.getElementById("font_color").style.backgroundColor
+    var bg_color = document.getElementById("bg_color").style.backgroundColor
+    
+    // window.close();
+    // alert(Application.ActiveDocument.Tables.Item(1).Rows.Item(1).Index)
+     // alert(Application.ActiveDocument.Tables.Item(1).Columns.Count)
+
+     if (Application.ActiveDocument.Tables.Item(1).Columns.Count == 5){
+
+        let tblNew = Application.ActiveDocument.Tables.Item(1)
+        let rowNew = tblNew.Rows.Add(tblNew.Rows.Item(2))
+        let celTable = rowNew.Cells.Item(1)
+        celTable.Range.InsertAfter(CS_Name)
+        celTable = rowNew.Cells.Item(2)
+        celTable.Range.InsertAfter(CV_Name)
+        celTable = rowNew.Cells.Item(3)
+        celTable.Range.InsertAfter(CV_Name_word)
+        celTable = rowNew.Cells.Item(4)
+        celTable.Range.InsertAfter(sex_value)
+        celTable = rowNew.Cells.Item(5)
+        celTable.Range.InsertAfter(CS_Name)
+        // celTable = rowNew.Cells.Item(6)
+        // celTable.Range.InsertAfter(CV_Name)
+        // console.log("%s", (colorRGB2Hex(font_color) ))
+        celTable.Range.Select()
+        Application.Selection.Font.Color = colorRGB2Hex(font_color) 
+        // Application.Selection.Range.HighlightColorIndex = Application.Enum.wdByAuthor;
+
+      
+    }
 
 
 }

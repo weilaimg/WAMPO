@@ -11,6 +11,7 @@ function OnAddinLoad(ribbonUI){
 
     wps.PluginStorage.setItem("EnableFlag", false) //往PluginStorage中设置一个标记，用于控制两个按钮的置灰
     wps.PluginStorage.setItem("ApiEventFlag", false) //往PluginStorage中设置一个标记，用于控制ApiEvent的按钮label
+    
     return true
 }
 
