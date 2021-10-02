@@ -40,6 +40,10 @@ function onbuttonclick(idStr)
             }
             break;
         }
+        case "test1":{
+            alert("Hello World")
+            break;
+        }
         case "getDocName":{
             let doc = wps.WpsApplication().ActiveDocument
                 let textValue = "";

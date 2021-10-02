@@ -25,7 +25,7 @@ function OnAction(control) {
                     alert("当前没有打开任何文档")
                     return
                 }
-                alert(doc.Name)
+                alert("hello world")
             }
             break;
         case "btnIsEnbable":
@@ -77,6 +77,41 @@ function OnAction(control) {
                 let currentTime = new Date()
                 let timeStr = currentTime.getHours() + ':' + currentTime.getMinutes() + ":" + currentTime.getSeconds()
                 wps.OAAssist.WebNotify("这行内容由wps加载项主动送达给业务系统，可以任意自定义, 比如时间值:" + timeStr + "，次数：" + (++WebNotifycount), true)
+            }
+            break
+        case "test1":
+            {
+                if (Application.Selection.Font.Bold == 0){
+                    Application.Selection.Font.Bold = -1
+                } else {
+                    Application.Selection.Font.Bold = 0
+                }
+                      alert(Application.Selection.Text)   
+
+                      
+                         
+            }
+            break
+        case "test2":
+            {
+                // 扩展到整段
+                Application.Selection.Expand(4)   
+                //Application.Selection.Range.HighlightColorIndex = 4;
+                //Application.Selection.Range.HighlightColorIndex=3
+                //黑色默认全0
+                console.log("get hex:%s\n",(0x1000000+ Application.Selection.Font.Color).toString(16).substring(1));
+                // alert(Application.Selection.Font.Color) 
+                // if(Application.Selection.Font.Color = 0xffffff){
+                //     alert("default")    
+                // }
+                
+                Application.Selection.Font.Color = 0xff0000
+                //Selection.MoveLeft(1,1,0);
+                //Selection.TypeText("【test Masg】");
+                // Application.Selection.HomeKey(0,1)
+                // Application.Selection.TypeText("【test Masg】")
+                Application.Selection.InsertBefore("\"Hamlet\"")
+                
             }
             break
         default:

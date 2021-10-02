@@ -10,6 +10,10 @@
                     <button id="btnApiEvent" getLabel="OnGetLabel" onAction="OnAction" getEnabled="OnGetEnabled"  getImage="GetImage" getVisible="OnGetVisible" size="large"/>
                     <button id="btnWebNotify" label="给业务系统发通知" onAction="OnAction" enabled="true"  getImage="GetImage" getVisible="OnGetVisible" size="large"/>
 				</group>
+                <group id="btnDemoGroup2" label="group2">
+                    <button id="test1" label="test_button" onAction="OnAction" getEnabled="OnGetEnabled"  getImage="GetImage" visible="true" size="large" />
+                    <button id="test2" label="test_button2" onAction="OnAction" getEnabled="OnGetEnabled"  getImage="GetImage" visible="true" size="large" />
+                </group>
             </tab>
         </tabs>
     </ribbon>
