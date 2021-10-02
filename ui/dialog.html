@@ -90,7 +90,7 @@
 </div>
 
 <div class="btn_add_new"> 
-<div class = "btn_cancel" onclick="create_table()">
+<div class = "btn_cancel" onclick="btn_cancel()">
     取消
 </div>
 <div class = "btn_new" onclick="create_chara()">
@@ -206,45 +206,9 @@ function colorRGB2Hex(color) {
 
 }
 
-function create_table(){
-    Application.ActiveDocument.Range(0, 0).InsertBreak()
-    let tblNew = Application.ActiveDocument.Tables.Add(Application.ActiveDocument.Range(0, 0), 1, 5)
-    tblNew.Cell(1, 1).Range.InsertAfter("角色名称")
-    tblNew.Cell(1, 1).Range.Select()
-    Application.Selection.Font.Color = 0x666666 
-    Application.Selection.Font.Size = 10
-    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+function btn_cancel(){
 
-    tblNew.Cell(1, 2).Range.InsertAfter("CV名称")
-    tblNew.Cell(1, 2).Range.Select()
-    Application.Selection.Font.Color = 0x666666 
-    Application.Selection.Font.Size = 10
-    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
-
-    tblNew.Cell(1, 3).Range.InsertAfter("角色描述")
-    tblNew.Cell(1, 3).Range.Select()
-    Application.Selection.Font.Color = 0x666666 
-    Application.Selection.Font.Size = 10
-    Application.Selection.Alignment = Application.Enum.wdAlignParagraphRight
-    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
-
-    tblNew.Cell(1, 4).Range.InsertAfter("角色性别")
-    tblNew.Cell(1, 4).Range.Select()
-    Application.Selection.Font.Color = 0x666666 
-    Application.Selection.Font.Size = 10
-    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
-
-    tblNew.Cell(1, 5).Range.InsertAfter("着色预览")
-    tblNew.Cell(1, 5).Range.Select()
-    Application.Selection.Font.Color = 0x666666 
-    Application.Selection.Font.Size = 10
-    Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
-
-    // tblNew.Columns.AutoFit()
-    let myTable = Application.ActiveDocument.Tables.Item(1)
-    myTable.Borders.InsideLineStyle = Application.Enum.wdLineStyleDashLargeGap
-    myTable.Borders.OutsideLineStyle = Application.Enum.wdLineStyleSingle
-
+    window.close()
 }
 
 
@@ -274,12 +238,36 @@ function create_chara(){
         let rowNew = tblNew.Rows.Add(tblNew.Rows.Item(2))
         let celTable = rowNew.Cells.Item(1)
         celTable.Range.InsertAfter(CS_Name)
+        tblNew.Cell(2, 1).Range.Select()
+        Application.Selection.Font.Bold = 0
+        Application.Selection.Font.Color = 0x666666 
+        Application.Selection.Font.Size = 10
+        Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
         celTable = rowNew.Cells.Item(2)
         celTable.Range.InsertAfter(CV_Name)
+        tblNew.Cell(2, 2).Range.Select()
+        Application.Selection.Font.Bold = 0
+        Application.Selection.Font.Color = 0x666666 
+        Application.Selection.Font.Size = 10
+        Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
         celTable = rowNew.Cells.Item(3)
         celTable.Range.InsertAfter(CV_Name_word)
+        tblNew.Cell(2, 3).Range.Select()
+        Application.Selection.Font.Bold = 0
+        Application.Selection.Font.Color = 0x666666 
+        Application.Selection.Font.Size = 10
+        Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
         celTable = rowNew.Cells.Item(4)
         celTable.Range.InsertAfter(sex_value)
+        tblNew.Cell(2, 4).Range.Select()
+        Application.Selection.Font.Bold = 0
+        Application.Selection.Font.Color = 0x666666 
+        Application.Selection.Font.Size = 10
+        Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
         celTable = rowNew.Cells.Item(5)
         celTable.Range.InsertAfter(CS_Name)
         // celTable = rowNew.Cells.Item(6)
@@ -289,8 +277,17 @@ function create_chara(){
         Application.Selection.Font.Color = colorRGB2Hex(font_color) 
         // Application.Selection.Range.HighlightColorIndex = Application.Enum.wdByAuthor;
 
-      
+        tblNew.Cell(2, 5).Range.Select()
+        Application.Selection.Font.Bold = 0
+        Application.Selection.Font.Size = 10
+        Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
+
+
+
+        Application.Selection.EndKey(Application.Enum.wdLine,Application.Enum.wdMove)
+        window.close()
     }
+
 
 
 }
