@@ -1,3 +1,8 @@
+var myCS_Name = new Array();
+var myCV_Name = new Array();
+var myF_Color = new Array();
+var myB_Color = new Array();
+
 window.onload = function () {
     // var xmlReq = WpsInvoke.CreateXHR();
     // var url = location.origin + "/.debugTemp/NotifyDemoUrl"
@@ -13,6 +18,7 @@ window.onload = function () {
 
     for (var i = 2; i<=row_num; i++){
         
+
         var table_div = document.getElementById("Chara_Table")
 
         var tr_div = document.createElement("div");
@@ -24,12 +30,15 @@ window.onload = function () {
         td_div.setAttribute("class","table-td")
         var CS_Name =Application.Selection.Text.replace( /^\s+|\s+$/g, "" )
         td_div.innerHTML=CS_Name
+        myCS_Name[i] = CS_Name
         tr_div.appendChild(td_div);
 
         Application.ActiveDocument.Tables.Item(1).Cell(i,2).Range.Select()
         var td_div = document.createElement("div");
         td_div.setAttribute("class","table-td")
-        td_div.innerHTML=Application.Selection.Text.replace( /^\s+|\s+$/g, "" )
+        var CV_Name = Application.Selection.Text.replace( /^\s+|\s+$/g, "" )
+        td_div.innerHTML= CV_Name
+        myCV_Name[i] = CV_Name
         tr_div.appendChild(td_div);
 
         Application.ActiveDocument.Tables.Item(1).Cell(i,4).Range.Select()
@@ -43,6 +52,7 @@ window.onload = function () {
         var Font_B = Application.Selection.Font.Color>>16
         var Font_G = Application.Selection.Font.Color<<8>>16&0xff
         var Font_R = Application.Selection.Font.Color<<16>>16&0xff
+        myF_Color[i] = Application.Selection.Font.Color
 
         Application.ActiveDocument.Tables.Item(1).Cell(i,5).Select()
         Application.Selection.HomeKey(Application.Enum.wdLine,Application.Enum.wdMove)
@@ -52,6 +62,7 @@ window.onload = function () {
         var Highlight_R = Highlight_Color>>16
         var Highlight_G = Highlight_Color<<8>>16&0xff
         var Highlight_B = Highlight_Color<<16>>16&0xff
+        myB_Color[i] = Application.Selection.Range.HighlightColorIndex
 
         var td_div = document.createElement("div");
         td_div.setAttribute("class","table-td")
@@ -244,6 +255,11 @@ function onbuttonclick(idStr)
 function do_paint(row_num){
 
     var Now_Select = Application.Selection.Expand(4)
+    Application.Selection.Range.HighlightColorIndex = myB_Color[row_num]
+    Application.Selection.Font.Color = myF_Color[row_num]
+
+    Application.Selection.MoveLeft(1,1,0);
+    Application.Selection.TypeText("【"+myCS_Name[row_num]+"】");
 
     // Application.ActiveDocument.Tables.Item(1).Cell(row_num,5).Range.Select()
     // var Font_Color = Application.Selection.Font.Color
@@ -253,6 +269,6 @@ function do_paint(row_num){
     // Application.Selection.Expand(2)
     // var Ht_Color_Index = Application.Selection.Range.HighlightColorIndex
 
-    Application.Selection.Range.HighlightColorIndex = 3
+    
 
 }
