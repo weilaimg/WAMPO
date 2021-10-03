@@ -235,7 +235,7 @@ function create_chara(){
      if (Application.ActiveDocument.Tables.Item(1).Columns.Count == 5){
 
         let tblNew = Application.ActiveDocument.Tables.Item(1)
-        let rowNew = tblNew.Rows.Add(tblNew.Rows.Item(2))
+        let rowNew = tblNew.Rows.Add(tblNew.Rows.Item(tblNew.Rows.Count+1))
         let celTable = rowNew.Cells.Item(1)
         celTable.Range.InsertAfter(CS_Name)
         tblNew.Cell(2, 1).Range.Select()
@@ -282,7 +282,13 @@ function create_chara(){
         Application.Selection.Font.Size = 10
         Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
 
-
+        
+        let tsId = wps.PluginStorage.getItem("taskpane_id")
+        let tskpane = wps.GetTaskPane(tsId)
+        if(tskpane){
+            tskpane.Visible = true
+            tskpane.Navigate(GetUrlPath() + "/sidebar.html")
+        }
 
         Application.Selection.EndKey(Application.Enum.wdLine,Application.Enum.wdMove)
         window.close()

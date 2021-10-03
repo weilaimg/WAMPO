@@ -309,14 +309,33 @@ function WAMPO_MAIN_ACTION(control){
                 alert("当前没有打开任何文档")
                 return
             } else {
-                if(WAMPO_init()){
                 
-                    wps.PluginStorage.setItem("EnableFlag", true)
+                let tsId = wps.PluginStorage.getItem("taskpane_id")
+                if (!tsId) {
+                    
+
+                    let tskpane = wps.CreateTaskPane(GetUrlPath() + "/ui/sidebar.html")
+                    let id = tskpane.ID
+                    wps.PluginStorage.setItem("taskpane_id", id)
+                } 
+
+                let tskpane = wps.GetTaskPane(tsId)
+                if(!tskpane.Visible){
+                    WAMPO_init()
+                    wps.PluginStorage.setItem("EnableFlag", true)                  
+
                     wps.ribbonUI.InvalidateControl("New_Chara")
 
+
+                    tskpane.Visible = true
+                    tskpane.Navigate(GetUrlPath() + "/ui/sidebar.html")
                 } else {
-                    alert("123")
+                    wps.PluginStorage.setItem("EnableFlag", false)
+                    wps.ribbonUI.InvalidateControl("New_Chara")
+                    tskpane.Visible = false
                 }
+
+
             }
             break
         }
