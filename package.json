@@ -1,8 +1,8 @@
 {
-	"name": "demo",
+	"name": "WAMPO",
 	"addonType": "wps",
-	"version": "1.0.0",
-	"description": "wps加载项示例, 执行npm install后，提供代码联想功能",
+	"version": "1.0.4",
+	"description": "WAMPO有声书标记插件",
 	"devDependencies": {
 		"wps-jsapi": "latest"
 	}

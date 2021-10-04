@@ -567,7 +567,7 @@
 
         function LoadPublishAddons() {
             var addonList = document.getElementById("addonList");
-            var curList = [{"name":"demo","addonType":"wps","online":"false","multiUser":"false","url":"https://github.com/weilaimg1314/WAMPO/raw/master/wps-addon-build/demo.7z","version":"1.0.2"}];
+            var curList = [{"name":"demo","addonType":"wps","online":"false","multiUser":"false","url":"https://github.com/weilaimg1314/WAMPO/raw/master/wps-addon-build/demo.7z","version":"1.0.0"},{"name":"WAMPO","addonType":"wps","online":"false","multiUser":"false","url":"https://github.com/weilaimg1314/WAMPO/raw/master/wps-addon-build/WAMPO.7z","version":"1.0.4"}];
             curList.forEach(function (element) {
                 var param = JSON.stringify(element).replace("\"", "\'");
                 UpdateElement(element, 'enable')
