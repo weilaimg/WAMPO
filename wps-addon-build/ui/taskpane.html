@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="./css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<script type="text/javascript" src="../js/util.js"></script>
+<script type="text/javascript" src="../js/taskpane.js"></script>
+<script type="text/javascript" src="../.debugTemp/wpsjsrpcsdk.js"></script>
+<script src="./js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<body>
+    <div class="global">
+        <div class="divItem">
+            这是一个网页，按<span style="font-weight: bolder;">"F12"</span>可以打开调试器。
+        </div>
+        <div class="divItem">
+            这个示例展示了wps加载项的相关基础能力，与B/S业务系统的交互，请用浏览器打开：
+            <span style="font-weight: bolder;color: slateblue;cursor:pointer" id="DemoSpan" onclick="shellExecuteByOAAssist(this.innerHTML)"></span>
+        </div>
+        <div class="divItem">开发文档: <span style="font-weight: bolder;color: slateblue;cursor:pointer" onclick="shellExecuteByOAAssist(this.innerHTML)">https://open.wps.cn/docs/office</span></div>
+        <hr>
+        <div class="divItem">
+            <button style="margin:3px;" onclick="onbuttonclick('dockLeft')">停靠左边</button>
+            <button style="margin:3px;" onclick="onbuttonclick('dockRight')">停靠右边</button>
+            <button style="margin:3px;" onclick="onbuttonclick('hideTaskPane')">隐藏TaskPane</button>
+            <button style="margin:3px;" onclick="onbuttonclick('addString')">文档开头添加字符串</button>
+            <button style="margin:3px;" onclick="onbuttonclick('getDocName')">取文件名</button>
+            <button style="margin:3px;" onclick="onbuttonclick('test1')">test1</button>
+            <button style="margin:3px;" onclick="onbuttonclick('test1')">test1</button>
+            <button style="margin:3px;" onclick="onbuttonclick('test1')">test1</button>
+            
+            
+        </div>
+        <hr>
+      
+
+        <button style="margin:3px;" onclick="initColorPicker('demo'); return false" id="demo" >test1</button>
+        <hr>
+        <div class="alert alert-primary" role="alert">
+            A simple primary alert—check it out!
+        </div>
+        <label for="exampleColorInput" class="form-label">Color picker</label>
+        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        　　<input type="color" name="color" id="color" onchange="changeColor()">    //选择颜色的标签，type="color"
+
+　　<span id="colorInfo"></span>
+
+    </div>
+</body>
+<style>
+.global {
+    font-size: 15px;
+    min-height: 95%;
+}
+
+.divItem {
+    margin-left: 5px;
+    margin-bottom: 18px;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+</style>
+
+
+
+
+</html>
+
+
+
+
+<!-- Color Picker -->
+<script type="text/JavaScript">
+var colorPicker = function (idStr) {
+    this.colorPool = ["#000000", "#993300", "#333300", "#003300", "#003366", "#000080", "#333399", "#333333", "#800000", "#FF6600", "#808000", "#008000", "#008080", "#0000FF", "#666699", "#808080", "#FF0000", "#FF9900", "#99CC00", "#339966", "#33CCCC", "#3366FF", "#800080", "#999999", "#FF00FF", "#FFCC00", "#FFFF00", "#00FF00", "#00FFFF", "#00CCFF", "#993366", "#CCCCCC", "#FF99CC", "#FFCC99", "#FFFF99", "#CCFFCC", "#CCFFFF", "#99CCFF", "#CC99FF", "#FFFFFF"];
+    this.initialize(idStr);
+}
+
+colorPicker.prototype = {
+
+        initialize: function (idStr) {
+            var count = 0;
+            var html = '';
+            var self = this;
+            html += '<table cellspacing="5" cellpadding="0" border="2" bordercolor="#000000" style="cursor:pointer;background:#ECE9D8" mce_style="cursor:pointer;background:#ECE9D8" >';
+            // html+= '<tr><td align="center" colspan="8" width="160" height="20" id="currentColor" bgcolor="#ffffff">当前颜色</td></tr>';
+            for (i = 0; i < 5; i++) {
+                html += "<tr>";
+                for (j = 0; j < 8; j++) {
+                    html += '<td align="center" width="20" height="20" style="background:' + this.colorPool[count] +';border-width: 2px; border-color:rgb(255,255,255)'+ '" mce_style="background:' + this.colorPool[count] + '" unselectable="on"> </td>';
+                    count++;
+                }
+                html += "</tr>";
+            }
+        html += '</table>';
+        this.trigger = document.getElementById(idStr);
+        this.div = document.createElement('div');
+        this.div.innerHTML = html;
+        var tds = this.div.getElementsByTagName('td');
+        for (var i = 0, l = tds.length; i < l; i++) {
+            tds[i].onclick = function () {
+            self.setColor(this.style.backgroundColor, idStr);
+            }
+        }
+        this.div.id = 'myColorPicker';
+        this.trigger.parentNode.appendChild(this.div);
+        this.div.style.position = 'absolute';
+        this.div.style.left = this.trigger.offsetLeft + 'px'
+        this.div.style.top = (this.trigger.clientHeight + this.trigger.offsetTop) + 'px';
+        //this.hide();
+        this.trigger.onclick = function () {
+            if (self.div.style.display == 'none') {
+                self.show();
+                return false;
+            } else {
+                self.hide();
+                return false;
+            }
+        }
+    },
+
+    setColor: function (c, idStr) {
+        this.hide();
+        // document.getElementById(idStr).style.backgroundColor = c //proEditor.setColor(c); //自己定义函数决定setColor的功能
+        document.getElementById(idStr).style.color = c
+        alert(c)
+        //var rgb2Hex = colorRGB2Hex(c);
+        //alert(rgb2Hex);
+    },
+
+    hide: function () {
+        this.div.style.display = 'none'
+    },
+
+    show: function () {
+        this.div.style.display = 'block'
+    }
+
+}
+
+
+function initColorPicker(str) {
+    picker = new colorPicker(str);
+}
+
+function colorRGB2Hex(color) {
+    var rgb = color.split(',');
+    var r = parseInt(rgb[0].split('(')[1]);
+    var g = parseInt(rgb[1]);
+    var b = parseInt(rgb[2].split(')')[0]);
+    var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); 
+    return hex; 
+}
+
+</script>
