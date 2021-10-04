@@ -200,7 +200,7 @@ function OnNewDocumentApiEvent(doc){
 
 
 function WAMPO_init(){
-
+    console.log(Application.ActiveDocument.Tables.Item(1).Columns.Count)
     if (Application.ActiveDocument.Tables.Item(1)){
         // var chara_table = Application.ActiveDocument.Tables.Item(1)
         // console.log(chara_table.Cell(1,1).Width=20)
@@ -229,7 +229,14 @@ function WAMPO_init(){
                     return true
                 } 
             }
-        }
+        } else {
+                var con = confirm("人物属性表存在问题，无法正确解析，是否重新创建？");
+                if(con == true){
+                    Construct_Main_Form();
+                    Application.Selection.EndKey(Application.Enum.wdLine,Application.Enum.wdMove)
+                    return true
+                } 
+            }
     } else { 
 
         var con = confirm("未检测到人物属性表，是否立即创建？");

@@ -253,14 +253,32 @@ function onbuttonclick(idStr)
 }
 
 function do_paint(row_num){
+    // let SelLength = 
+    if (Application.Selection.End - Application.Selection.Start){
+        Application.Selection.Range.HighlightColorIndex = myB_Color[row_num]
+        Application.Selection.Font.Color = myF_Color[row_num]
 
-    var Now_Select = Application.Selection.Expand(4)
-    Application.Selection.Range.HighlightColorIndex = myB_Color[row_num]
-    Application.Selection.Font.Color = myF_Color[row_num]
+        Application.Selection.MoveLeft(1,1,0);
+        Input_Text = "【"+myCS_Name[row_num]+"】"
+        Application.Selection.TypeText(Input_Text);
+        Application.Selection.SetRange(Application.Selection.End-Input_Text.length,Application.Selection.End);
+        Application.Selection.Range.HighlightColorIndex = myB_Color[row_num]
+        Application.Selection.Font.Color = myF_Color[row_num]
+        Application.Selection.MoveLeft(1,1,0);
 
-    Application.Selection.MoveLeft(1,1,0);
-    Application.Selection.TypeText("【"+myCS_Name[row_num]+"】");
 
+    } else {
+
+        Application.Selection.Expand(4)
+        Application.Selection.Range.HighlightColorIndex = myB_Color[row_num]
+        Application.Selection.Font.Color = myF_Color[row_num]
+
+        Application.Selection.MoveLeft(1,1,0);
+        Application.Selection.TypeText("【"+myCS_Name[row_num]+"】");
+
+
+    }
+    
     // Application.ActiveDocument.Tables.Item(1).Cell(row_num,5).Range.Select()
     // var Font_Color = Application.Selection.Font.Color
 
