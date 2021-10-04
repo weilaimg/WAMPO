@@ -8,7 +8,7 @@
                 </group>
                 <group id="btnDemoGroup2" label="group2">
                     <button id="New_Chara" label="新建人物属性" onAction="WAMPO_MAIN_ACTION" getEnabled="OnGetEnabled"  getImage="GetImage" visible="true" size="large" />
-                    <button id="test2" label="我还妹想好呢" onAction="OnAction" getEnabled="OnGetEnabled"  getImage="GetImage" visible="true" size="large" />
+                    <button id="No_Idea" label="我还妹想好呢" onAction="WAMPO_MAIN_ACTION" getEnabled="OnGetEnabled"  getImage="GetImage" visible="true" size="large" />
                 </group>
             </tab>
         </tabs>

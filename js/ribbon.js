@@ -200,7 +200,6 @@ function OnNewDocumentApiEvent(doc){
 
 
 function WAMPO_init(){
-    console.log(Application.ActiveDocument.Tables.Item(1).Columns.Count)
     if (Application.ActiveDocument.Tables.Item(1)){
         // var chara_table = Application.ActiveDocument.Tables.Item(1)
         // console.log(chara_table.Cell(1,1).Width=20)
@@ -323,25 +322,31 @@ function WAMPO_MAIN_ACTION(control){
 
                     let tskpane = wps.CreateTaskPane(GetUrlPath() + "/ui/sidebar.html")
                     let id = tskpane.ID
+                    tsId = id
                     wps.PluginStorage.setItem("taskpane_id", id)
-                } 
-
-                let tskpane = wps.GetTaskPane(tsId)
-                if(!tskpane.Visible){
+                    wps.GetTaskPane(tsId).Visible = true
                     WAMPO_init()
                     wps.PluginStorage.setItem("EnableFlag", true)                  
-
                     wps.ribbonUI.InvalidateControl("New_Chara")
-
 
                     tskpane.Visible = true
                     tskpane.Navigate(GetUrlPath() + "/ui/sidebar.html")
                 } else {
-                    wps.PluginStorage.setItem("EnableFlag", false)
-                    wps.ribbonUI.InvalidateControl("New_Chara")
-                    tskpane.Visible = false
-                }
 
+                    let tskpane = wps.GetTaskPane(tsId)
+                    if(!tskpane.Visible){
+                        WAMPO_init()
+                        wps.PluginStorage.setItem("EnableFlag", true)                  
+                        wps.ribbonUI.InvalidateControl("New_Chara")
+
+                        tskpane.Visible = true
+                        tskpane.Navigate(GetUrlPath() + "/ui/sidebar.html")
+                    } else {
+                        wps.PluginStorage.setItem("EnableFlag", false)
+                        wps.ribbonUI.InvalidateControl("New_Chara")
+                        tskpane.Visible = false
+                    }
+                }
 
             }
             break
@@ -349,6 +354,13 @@ function WAMPO_MAIN_ACTION(control){
         case "New_Chara":
         {
             wps.ShowDialog(GetUrlPath() + "/ui/dialog.html", "新建人物属性", 400 * window.devicePixelRatio, 400 * window.devicePixelRatio, false)
+            break
+
+        }
+
+        case "No_Idea":
+        {
+            wps.ShowDialog(GetUrlPath() + "/ui/noidea.html", "WAMPO关于", 550 * window.devicePixelRatio, 580 * window.devicePixelRatio, false)
             break
 
         }
