@@ -1,7 +1,7 @@
 {
 	"name": "WAMPO",
 	"addonType": "wps",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "WAMPO有声书标记插件",
 	"devDependencies": {
 		"wps-jsapi": "latest"
