@@ -259,6 +259,7 @@ function Construct_Main_Form(){
     Application.Selection.Font.Bold = -1
     Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphLeft;
     Application.Selection.Font.Color = 0x0
+    Application.Selection.Range.HighlightColorIndex = 0
 
     let tblNew = Application.ActiveDocument.Tables.Add(Application.ActiveDocument.Range(0, 0), 1, 5)
     tblNew.Cell(1, 1).Range.InsertAfter("角色名称")
