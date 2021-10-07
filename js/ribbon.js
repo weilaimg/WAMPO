@@ -326,11 +326,13 @@ function WAMPO_MAIN_ACTION(control){
                     wps.PluginStorage.setItem("taskpane_id", id)
                     wps.GetTaskPane(tsId).Visible = true
                     WAMPO_init()
+                    
                     wps.PluginStorage.setItem("EnableFlag", true)                  
                     wps.ribbonUI.InvalidateControl("New_Chara")
 
                     tskpane.Visible = true
                     tskpane.Navigate(GetUrlPath() + "/ui/sidebar.html")
+
                 } else {
 
                     let tskpane = wps.GetTaskPane(tsId)

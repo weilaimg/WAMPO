@@ -158,15 +158,15 @@ bgcolorPicker = function(idStr) {
 bgcolorPicker.prototype = {
 
     initialize: function(idStr) {
-        var count = 0;
+        var count = 1;
         var html = '';
         var self = this;
         html += '<table cellspacing="5" cellpadding="0" border="2" bordercolor="#000000" style="cursor:pointer;background:#ECE9D8" mce_style="cursor:pointer;background:#ECE9D8" >';
 
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < 3; i++) {
             html += "<tr>";
             for (j = 0; j < 5; j++) {
-                html += '<td align="center" width="20" height="20" id="cid,'+count+'" style="background:' + this.colorPool[count] + ';border-width: 2px; border-color:rgb(255,255,255)' + '" mce_style="background:' + this.colorPool[count] + '" unselectable="on"> </td>';
+                html += '<td align="center" width="20" height="20" id="'+(count+1)+'" style="background:' + this.colorPool[count] + ';border-width: 2px; border-color:rgb(255,255,255)' + '" mce_style="background:' + this.colorPool[count] + '" unselectable="on"> </td>';
                 count++;
             }
             html += "</tr>";
@@ -205,6 +205,7 @@ bgcolorPicker.prototype = {
         this.hide();
         // document.getElementById(idStr).style.backgroundColor = c //proEditor.setColor(c); //自己定义函数决定setColor的功能
         // document.getElementById(idStr).name = i
+        document.getElementById(idStr).setAttribute("BGIndex",i) 
         document.getElementById(idStr).style.backgroundColor = c
 
         //var rgb2Hex = colorRGB2Hex(c);
@@ -268,7 +269,9 @@ function create_chara() {
 
 
     var font_color = document.getElementById("font_color").style.backgroundColor
-    var bg_color = document.getElementById("bg_color").style.backgroundColor
+    var bg_color = document.getElementById("bg_color").getAttribute("BGIndex") 
+    console.log(bg_color)
+
 
     // window.close();
     // alert(Application.ActiveDocument.Tables.Item(1).Rows.Item(1).Index)
@@ -280,7 +283,7 @@ function create_chara() {
         let rowNew = tblNew.Rows.Add(tblNew.Rows.Item(tblNew.Rows.Count + 1))
         let celTable = rowNew.Cells.Item(1)
         celTable.Range.InsertAfter(CS_Name)
-        tblNew.Cell(2, 1).Range.Select()
+        tblNew.Cell(tblNew.Rows.Count + 1, 1).Range.Select()
         Application.Selection.Font.Bold = 0
         Application.Selection.Font.Color = 0x666666
         Application.Selection.Font.Size = 10
@@ -288,7 +291,7 @@ function create_chara() {
 
         celTable = rowNew.Cells.Item(2)
         celTable.Range.InsertAfter(CV_Name)
-        tblNew.Cell(2, 2).Range.Select()
+        tblNew.Cell(tblNew.Rows.Count + 1, 2).Range.Select()
         Application.Selection.Font.Bold = 0
         Application.Selection.Font.Color = 0x666666
         Application.Selection.Font.Size = 10
@@ -296,7 +299,7 @@ function create_chara() {
 
         celTable = rowNew.Cells.Item(3)
         celTable.Range.InsertAfter(CV_Name_word)
-        tblNew.Cell(2, 3).Range.Select()
+        tblNew.Cell(tblNew.Rows.Count + 1, 3).Range.Select()
         Application.Selection.Font.Bold = 0
         Application.Selection.Font.Color = 0x666666
         Application.Selection.Font.Size = 10
@@ -304,7 +307,7 @@ function create_chara() {
 
         celTable = rowNew.Cells.Item(4)
         celTable.Range.InsertAfter(sex_value)
-        tblNew.Cell(2, 4).Range.Select()
+        tblNew.Cell(tblNew.Rows.Count + 1, 4).Range.Select()
         Application.Selection.Font.Bold = 0
         Application.Selection.Font.Color = 0x666666
         Application.Selection.Font.Size = 10
@@ -317,11 +320,13 @@ function create_chara() {
         // console.log("%s", (colorRGB2Hex(font_color) ))
         celTable.Range.Select()
         Application.Selection.Font.Color = colorRGB2Hex(font_color)
-        // Application.Selection.Range.HighlightColorIndex = Application.Enum.wdByAuthor;
+        
+        Application.Selection.Range.HighlightColorIndex = bg_color
 
-        tblNew.Cell(2, 5).Range.Select()
+        tblNew.Cell(tblNew.Rows.Count + 1, 5).Range.Select()
         Application.Selection.Font.Bold = 0
         Application.Selection.Font.Size = 10
+        // Application.Selection.Range.HighlightColorIndex = bg_color
         Application.Selection.ParagraphFormat.Alignment = Application.Enum.wdAlignParagraphCenter;
 
 
@@ -333,9 +338,14 @@ function create_chara() {
         }
 
         Application.Selection.EndKey(Application.Enum.wdLine, Application.Enum.wdMove)
-        window.close()
+        // window.close()
     }
 
 
 
+}
+
+
+function testmouse(){
+    alert('123')
 }
